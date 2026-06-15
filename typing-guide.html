@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タイピングきょうしつ せんせいガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1b2a4a;--soft:#5a6a86;--paper:#eef4fb;--line:#dbe6f3;
+    --orange:#ff8a3d;--sky:#3da5ff;--sky-d:#1f7fd6;--green:#2fbf71;--yellow:#ffd23f;
+    --low:#ff8a3d;--mid:#3da5ff;--high:#2fbf71;
+    font-family:"M PLUS Rounded 1c",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  .page{max-width:860px;margin:0 auto;background:#fff;padding:46px 52px;}
+  .toolbar{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);padding:12px 16px;display:flex;gap:10px;justify-content:flex-end;z-index:10}
+  .toolbar button{font-family:inherit;font-weight:700;border:none;background:var(--sky);color:#fff;border-radius:10px;padding:9px 16px;cursor:pointer;font-size:14px;box-shadow:0 3px 0 var(--sky-d)}
+
+  h1{font-size:32px;font-weight:800;letter-spacing:.5px;line-height:1.3}
+  .sub{color:var(--soft);font-weight:500;margin-top:8px;font-size:15px}
+  h2{font-size:23px;font-weight:800;margin:34px 0 14px;padding-left:14px;border-left:8px solid var(--sky);line-height:1.3}
+  h3{font-size:18px;font-weight:800;margin:22px 0 10px;color:var(--sky-d)}
+  p{margin:8px 0;font-size:15px}
+  ul,ol{margin:8px 0 8px 22px;font-size:15px}
+  li{margin:4px 0}
+  strong{font-weight:800}
+  .lead{background:var(--paper);border-radius:14px;padding:16px 20px;font-weight:500;font-size:15px;margin:14px 0}
+
+  .cover{display:flex;gap:24px;align-items:center;border-bottom:3px solid var(--line);padding-bottom:24px;margin-bottom:8px}
+  .cover svg{width:120px;height:120px;flex:none}
+
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+  .chip{background:var(--paper);border-radius:99px;padding:6px 16px;font-size:13.5px;font-weight:700;color:var(--sky-d)}
+
+  /* レベル見出し */
+  .lv{margin-top:40px;border-radius:16px;padding:18px 22px;color:#fff}
+  .lv.low{background:linear-gradient(110deg,#ff8a3d,#ffb27a)}
+  .lv.mid{background:linear-gradient(110deg,#3da5ff,#7cc4ff)}
+  .lv.high{background:linear-gradient(110deg,#2fbf71,#73d6a0)}
+  .lv .g{font-size:13px;font-weight:700;opacity:.95}
+  .lv .t{font-size:24px;font-weight:800}
+  .lv .d{font-size:14px;font-weight:500;opacity:.97;margin-top:4px}
+
+  /* 授業コマ */
+  .lesson{border:1px solid var(--line);border-radius:16px;padding:0;margin:18px 0;overflow:hidden}
+  .lesson > .head{background:var(--paper);padding:12px 18px;font-weight:800;font-size:17px;display:flex;align-items:center;gap:10px}
+  .lesson > .head .no{background:var(--sky);color:#fff;border-radius:8px;font-size:13px;padding:3px 10px}
+  .lesson .body{padding:14px 18px}
+  .aim{font-weight:700;color:var(--green);font-size:14.5px;margin-bottom:8px}
+  .where{display:inline-block;background:#fff1e5;color:#ef6f1c;border-radius:8px;padding:3px 10px;font-size:13px;font-weight:700;margin:4px 0 10px}
+
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--paper);font-weight:800;white-space:nowrap}
+  td.time{white-space:nowrap;font-weight:700;color:var(--sky-d);width:84px}
+
+  .say{background:#f4f8fd;border-left:4px solid var(--sky);border-radius:0 10px 10px 0;padding:10px 14px;margin:10px 0;font-size:14px}
+  .say b{color:var(--sky-d)}
+  .tip{background:#fff8ec;border-left:4px solid var(--yellow);border-radius:0 10px 10px 0;padding:10px 14px;margin:10px 0;font-size:14px}
+  .tip b{color:#c98a00}
+
+  /* 付録：ローマ字表 */
+  .roma{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0;font-size:14px}
+  .roma div{background:var(--paper);border-radius:8px;padding:7px 4px;text-align:center;font-weight:700}
+  .roma div small{display:block;color:var(--soft);font-weight:500;font-size:11px}
+
+  /* がんばりカード */
+  .card{border:2px dashed var(--sky);border-radius:16px;padding:18px;margin:14px 0}
+  .card h3{margin-top:0}
+  .card .rows td{height:34px}
+
+  .home-fig{display:flex;gap:4px;flex-wrap:wrap;margin:10px 0}
+  .home-fig .k{width:42px;height:42px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;background:#fff;font-size:14px}
+  .home-fig .k.h{background:#eaf3ff;color:var(--sky-d);border-color:var(--sky)}
+
+  .footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;color:var(--soft);font-size:13px}
+
+  @media print{
+    .toolbar{display:none}
+    body{background:#fff}
+    .page{max-width:none;padding:0 6mm}
+    .lv,.lesson,.card{break-inside:avoid}
+    h2{break-after:avoid}
+    .pb{break-before:page}
+    @page{margin:14mm}
+  }
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">🖨 印刷 / PDF保存</button></div>
+<div class="page">
+
+  <div class="cover">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <rect x="55" y="14" width="4" height="14" rx="2" fill="#5a6a86"/><circle cx="57" cy="12" r="6" fill="#ffd23f"/>
+      <rect x="26" y="30" width="68" height="58" rx="20" fill="#3da5ff"/>
+      <rect x="33" y="40" width="54" height="36" rx="14" fill="#eef4fb"/>
+      <circle cx="50" cy="54" r="5.5" fill="#1b2a4a"/><circle cx="70" cy="54" r="5.5" fill="#1b2a4a"/>
+      <path d="M52 66 q8 8 16 0" stroke="#1b2a4a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <circle cx="41" cy="64" r="4" fill="#ff8a3d" opacity=".5"/><circle cx="79" cy="64" r="4" fill="#ff8a3d" opacity=".5"/>
+    </svg>
+    <div>
+      <h1>あいろの タイピングきょうしつ<br><span style="font-size:20px">せんせい用 指導ガイド</span></h1>
+      <p class="sub">小学校・低学年／中学年／高学年むけ ／ 全3回・各45分 ／ Webアプリ連動</p>
+    </div>
+  </div>
+
+  <div class="meta">
+    <span class="chip">3レベル × 3回 = 9コマ</span>
+    <span class="chip">1コマ 45分</span>
+    <span class="chip">PC・Chromebook 対応</span>
+    <span class="chip">飯島小中学校学校運営協議会／豊田連合</span>
+  </div>
+
+  <h2>このガイドの つかい方</h2>
+  <p>本教材は、児童用Webアプリ「<strong>あいろの タイピングきょうしつ</strong>」（<code>typing-school.html</code>）と組み合わせて使います。アプリが「練習」を、本ガイドが「45分の授業の流れ・声かけ・つまずき対応」を担当します。</p>
+  <div class="lead">
+    <strong>学年で内容を分ける理由</strong><br>
+    ローマ字は小学3年で学習します。そこで <strong>低学年（1・2年）はローマ字を使わず</strong>、キーの場所・指の位置・アルファベットに親しむことに専念。<strong>中学年（3・4年）でローマ字入力の基礎</strong>、<strong>高学年（5・6年）でタッチタイピングと文・スピード</strong>へと、無理なく積み上げます。</p>
+  <ul>
+    <li><strong>準備するもの</strong>：1人1台のPCまたはChromebook（キーボード必須）、プロジェクター（先生のデモ用）、印刷した「がんばりカード」（巻末）。</li>
+    <li><strong>アプリの開き方</strong>：ブラウザで <code>typing-school.html</code> を開く（GitHub Pages等に置けばURLを配るだけ）。トップで学年→回を選ぶと練習が始まります。</li>
+    <li><strong>記録</strong>：各回の終わりに★（最大3つ）・正確さ・1分間文字数が表示されます。「がんばりカード」に書き写すと成長が見えます。</li>
+  </ul>
+
+  <h2>あきずに 楽しく つづける 7つの しかけ</h2>
+  <ol>
+    <li><strong>勝ち負けより「自己ベスト」</strong>。昨日の自分を超えれば全員が主役になれます。</li>
+    <li><strong>1ステージを短く</strong>。数文字でクリアできるので、達成感のサイクルが速い。</li>
+    <li><strong>★とがんばりカードで見える化</strong>。伸びが目に見えると続きます。</li>
+    <li><strong>マスコット「あいろ」</strong>がほめてくれる。安心して挑戦できる空気をつくる。</li>
+    <li><strong>ゲーム化</strong>（もぐらたたき・タイムレース）で「練習＝遊び」に。</li>
+    <li><strong>学年に合った難易度</strong>で「できた！」を保証する。</li>
+    <li><strong>まちがえてOK</strong>。画面キーボードが次のキーを光らせ、迷子にしない。</li>
+  </ol>
+
+  <!-- ===================== 低学年 ===================== -->
+  <div class="lv low pb">
+    <div class="g">レベル1 ／ 1・2年生</div>
+    <div class="t">キーボードと なかよし</div>
+    <div class="d">ローマ字は使わず、キーの場所・ホームポジション・アルファベットに親しむ。</div>
+  </div>
+
+  <div class="lesson">
+    <div class="head"><span class="no">第1回</span> キーボードって なあに？</div>
+    <div class="body">
+      <div class="aim">ねらい：ホームポジション（F・Jの突起）を知り、左右の指をキーに置ける。</div>
+      <span class="where">アプリ：1・2年生 → 第1回（FとJ／ひだりの指／みぎの指）</span>
+      <table>
+        <tr><th>時間</th><th>活動</th></tr>
+        <tr><td class="time">0–5分</td><td>あいさつ・きょうのめあて「キーボードとなかよくなろう」。あいろを紹介。</td></tr>
+        <tr><td class="time">5–12分</td><td><strong>キーボード探検</strong>：F・Jの突起を指でさわる。ホームポジションの手の形を全員で確認（プロジェクターで実演）。</td></tr>
+        <tr><td class="time">12–22分</td><td>アプリ 第1回 ステージ1〜2（F・J／A S D F）。光ったキーを探して押す。</td></tr>
+        <tr><td class="time">22–32分</td><td>ステージ3（J K L）＋もう一度通し。</td></tr>
+        <tr><td class="time">32–40分</td><td><strong>ミニゲーム</strong>：先生が言ったキーを早押し。ペアで応援し合う。</td></tr>
+        <tr><td class="time">40–45分</td><td>ふりかえり。★を見て「できたこと」を発表。がんばりカードにシール。</td></tr>
+      </table>
+      <div class="say"><b>声かけ例：</b>「2つのキーにだけ、小さなでっぱりがあるよ。目をつぶってもさわって分かるね。ここが指のおうち＝ホームポジションだよ。」</div>
+      <div class="tip"><b>つまずき対応：</b>キーを探すのに時間がかかってもOK。「速さ」ではなく「見つけられた」をほめる。手元ばかり見る子には、画面の光るキーと同じ場所を探す遊びとして声かけ。</div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="head"><span class="no">第2回</span> もぐらたたき タイピング</div>
+    <div class="body">
+      <div class="aim">ねらい：出てきた文字をすばやく見つけて押す。反応よくキー位置に慣れる。</div>
+      <span class="where">アプリ：1・2年生 → 第2回（もぐらたたき／すうじチャレンジ）</span>
+      <table>
+        <tr><th>時間</th><th>活動</th></tr>
+        <tr><td class="time">0–5分</td><td>あいさつ・前回の復習（「FとJはどこ？」全員で指さし）。</td></tr>
+        <tr><td class="time">5–10分</td><td>「出てきた文字をすばやく押す」ルールをデモ。</td></tr>
+        <tr><td class="time">10–20分</td><td>アプリ 第2回 ステージ1〜2（もぐらたたき）。</td></tr>
+        <tr><td class="time">20–30分</td><td>ステージ3（すうじキー1〜0）。数字の場所も探す。</td></tr>
+        <tr><td class="time">30–40分</td><td><strong>クラスチャレンジ</strong>：正解数の合計を黒板に記録、前回より増やそう。</td></tr>
+        <tr><td class="time">40–45分</td><td>ふりかえり・がんばりカード記入。</td></tr>
+      </table>
+      <div class="tip"><b>つまずき対応：</b>焦ってまちがえても、画面が次のキーを光らせ続けるので迷子にならない。「まちがえても大丈夫、もう一回探そう」を合言葉に。</div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="head"><span class="no">第3回</span> ABC マスター</div>
+    <div class="body">
+      <div class="aim">ねらい：アルファベットA〜Zの場所を一通りさわり、キーボード全体に親しむ。</div>
+      <span class="where">アプリ：1・2年生 → 第3回（AからZ／ミックス／しあげ）</span>
+      <table>
+        <tr><th>時間</th><th>活動</th></tr>
+        <tr><td class="time">0–5分</td><td>あいさつ・めあて「アルファベットマスターになろう」。</td></tr>
+        <tr><td class="time">5–10分</td><td>アルファベットの歌などでA〜Zを声に出して確認。</td></tr>
+        <tr><td class="time">10–22分</td><td>アプリ 第3回 ステージ1（A→Z順番うち）。</td></tr>
+        <tr><td class="time">22–32分</td><td>ステージ2〜3（ミックス・しあげ）。</td></tr>
+        <tr><td class="time">32–40分</td><td>自分の名前の最初の文字など、好きな文字を自由に押す時間。</td></tr>
+        <tr><td class="time">40–45分</td><td><strong>修了式</strong>：3回がんばったね。修了カードを渡す。</td></tr>
+      </table>
+      <div class="say"><b>声かけ例：</b>「3回でキーボードと仲良しになれたね。中学年になったら、今度は『ローマ字』で言葉が打てるようになるよ。」</div>
+    </div>
+  </div>
+
+  <!-- ===================== 中学年 ===================== -->
+  <div class="lv mid pb">
+    <div class="g">レベル2 ／ 3・4年生</div>
+    <div class="t">ローマ字で うとう</div>
+    <div class="d">習ったローマ字で、1文字 → かんたんな言葉へステップアップ。</div>
+  </div>
+
+  <div class="lesson">
+    <div class="head"><span class="no">第1回</span> あいうえお〜</div>
+    <div class="body">
+      <div class="aim">ねらい：ローマ字入力のしくみ（子音＋母音）を理解し、1文字を打てる。</div>
+      <span class="where">アプリ：3・4年生 → 第1回（あ行／か・さ行／た・な行）</span>
+      <table>
+        <tr><th>時間</th><th>活動</th></tr>
+        <tr><td class="time">0–5分</td><td>あいさつ・「ローマ字、おぼえてるかな？」既習の確認。</td></tr>
+        <tr><td class="time">5–12分</td><td>入力のしくみをデモ：「あ＝a」「か＝k＋a」。母音 a・i・u・e・o を板書。</td></tr>
+        <tr><td class="time">12–24分</td><td>アプリ 第1回 ステージ1〜2（あ行／か・さ行）。画面のローマ字ヒントを見て打つ。</td></tr>
+        <tr><td class="time">24–34分</td><td>ステージ3（た・な行）。</td></tr>
+        <tr><td class="time">34–42分</td><td><strong>クイズ</strong>：先生が言ったかなをローマ字で打つ。</td></tr>
+        <tr><td class="time">42–45分</td><td>ふりかえり・がんばりカード。</td></tr>
+      </table>
+      <div class="tip"><b>つまずき対応：</b>「し」は <b>shi でも si でもOK</b>、「ち」は <b>chi/ti</b>、「つ」は <b>tsu/tu</b> など、複数の打ち方を受けつけます。子どもが習った形で打てれば正解にします。</div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="head"><span class="no">第2回</span> ことばに ちょうせん</div>
+    <div class="body">
+      <div class="aim">ねらい：2〜3文字の言葉を、ローマ字をつなげて打てる。</div>
+      <span class="where">アプリ：3・4年生 → 第2回（みじかい言葉／がっこうのもの）</span>
+      <table>
+        <tr><th>時間</th><th>活動</th></tr>
+        <tr><td class="time">0–5分</td><td>復習（「し＝shi/si どっちでもいいよ」）。</td></tr>
+        <tr><td class="time">5–10分</td><td>言葉を続けて打つコツ。画面の「打った所＝緑／次＝オレンジ」の見方を説明。</td></tr>
+        <tr><td class="time">10–22分</td><td>アプリ 第2回 ステージ1〜2（ねこ・いぬ…）。</td></tr>
+        <tr><td class="time">22–32分</td><td>ステージ3（いす・つくえ・えんぴつ…）。</td></tr>
+        <tr><td class="time">32–42分</td><td><strong>ペア活動</strong>：交代で言葉しりとりタイピング。</td></tr>
+        <tr><td class="time">42–45分</td><td>ふりかえり。</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="head"><span class="no">第3回</span> いきもの ずかん</div>
+    <div class="body">
+      <div class="aim">ねらい：「ん（nn）」「っ（小さいつ）」を含む言葉にも挑戦できる。</div>
+      <span class="where">アプリ：3・4年生 → 第3回（どうぶつ／しあげミックス）</span>
+      <table>
+        <tr><th>時間</th><th>活動</th></tr>
+        <tr><td class="time">0–5分</td><td>あいさつ・めあて。</td></tr>
+        <tr><td class="time">5–10分</td><td>「ん」は <b>n</b> または <b>nn</b>、小さい「っ」は次の文字を重ねる（例：がっこう→gakkou）。</td></tr>
+        <tr><td class="time">10–22分</td><td>アプリ 第3回 ステージ1〜2（うさぎ・らいおん…）。</td></tr>
+        <tr><td class="time">22–32分</td><td>ステージ3（しあげミックス）。</td></tr>
+        <tr><td class="time">32–42分</td><td><strong>タイムレース</strong>：同じ言葉セットで、速さと正確さに挑戦。</td></tr>
+        <tr><td class="time">42–45分</td><td>修了・ふりかえり。</td></tr>
+      </table>
+      <div class="say"><b>声かけ例：</b>「『らいおん』の最後の『ん』は n を2回。むずかしい所が打てたら、もう立派なタイピストだね。」</div>
+    </div>
+  </div>
+
+  <!-- ===================== 高学年 ===================== -->
+  <div class="lv high pb">
+    <div class="g">レベル3 ／ 5・6年生</div>
+    <div class="t">タッチタイピングに ちょうせん</div>
+    <div class="d">正しい指づかいから、文・スピードまで。キーを見ずに打てたら名人。</div>
+  </div>
+
+  <div class="lesson">
+    <div class="head"><span class="no">第1回</span> ホームポジションと ことば</div>
+    <div class="body">
+      <div class="aim">ねらい：正しい指の担当を意識し、よく使う言葉を安定して打てる。</div>
+      <span class="where">アプリ：5・6年生 → 第1回（みじかい言葉／がっこうの言葉／ゃゅょ）</span>
+      <table>
+        <tr><th>時間</th><th>活動</th></tr>
+        <tr><td class="time">0–5分</td><td>めあて「キーを見ないで打つ＝タッチタイピング」。</td></tr>
+        <tr><td class="time">5–12分</td><td>指の担当・姿勢・ホームポジション復習（巻末の図を配布）。</td></tr>
+        <tr><td class="time">12–24分</td><td>アプリ 第1回 ステージ1〜2（あさ・ともだち…）。</td></tr>
+        <tr><td class="time">24–34分</td><td>ステージ3（しゅくだい・しゃしん など拗音）。</td></tr>
+        <tr><td class="time">34–42分</td><td><strong>挑戦</strong>：手元を紙で隠し、画面だけ見て打つ。</td></tr>
+        <tr><td class="time">42–45分</td><td>ふりかえり（「正確さ」の数字に注目）。</td></tr>
+      </table>
+      <div class="tip"><b>つまずき対応：</b>速さより<strong>正確さ</strong>優先。まちがえたら画面が次のキーを示すので、慌てず1文字ずつ。手元を見たくなるのは自然なこと、少しずつでOK。</div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="head"><span class="no">第2回</span> 文（ぶん）を うとう</div>
+    <div class="body">
+      <div class="aim">ねらい：スペースを含む短い文を、まとまりとして打てる。</div>
+      <span class="where">アプリ：5・6年生 → 第2回（みじかい文1・2／しあげの文）</span>
+      <table>
+        <tr><th>時間</th><th>活動</th></tr>
+        <tr><td class="time">0–5分</td><td>復習・めあて。</td></tr>
+        <tr><td class="time">5–10分</td><td>スペースキーの使い方。文は単語のまとまりで打つと速い、と説明。</td></tr>
+        <tr><td class="time">10–22分</td><td>アプリ 第2回 ステージ1〜2（あさ はやく おきる…）。</td></tr>
+        <tr><td class="time">22–32分</td><td>ステージ3（しあげの文）。</td></tr>
+        <tr><td class="time">32–42分</td><td><strong>応用</strong>：自分で短い文を作り、ノートに書いてから打つ。</td></tr>
+        <tr><td class="time">42–45分</td><td>ふりかえり。</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="head"><span class="no">第3回</span> スピードチャレンジ</div>
+    <div class="body">
+      <div class="aim">ねらい：60秒で何文字打てるか、速さと正確さの両立に挑戦し、記録を残す。</div>
+      <span class="where">アプリ：5・6年生 → 第3回（60びょうチャレンジ）</span>
+      <table>
+        <tr><th>時間</th><th>活動</th></tr>
+        <tr><td class="time">0–5分</td><td>めあて「60秒チャレンジ」。</td></tr>
+        <tr><td class="time">5–12分</td><td>記録の見方（1分間文字数・正確さ%）。速いだけでなく正確さも大事。</td></tr>
+        <tr><td class="time">12–25分</td><td>アプリ 第3回（60秒）を複数回。毎回★と記録を確認。</td></tr>
+        <tr><td class="time">25–35分</td><td><strong>自己ベスト更新</strong>を狙う。記録カードに書き込む。</td></tr>
+        <tr><td class="time">35–42分</td><td>クラス記録の発表・表彰（速さ賞・正確さ賞・伸び賞など複数）。</td></tr>
+        <tr><td class="time">42–45分</td><td>3回のまとめ・これからの練習法（毎日5分でも続ける）。</td></tr>
+      </table>
+      <div class="say"><b>声かけ例：</b>「1位だけがすごいんじゃない。きのうの自分より1文字でも増えたら、それが一番の金メダルだよ。」</div>
+    </div>
+  </div>
+
+  <!-- ===================== 付録 ===================== -->
+  <h2 class="pb">付録1：ホームポジション</h2>
+  <p>左手は <strong>A・S・D・F</strong>、右手は <strong>J・K・L・;</strong> に置きます。<strong>F</strong> と <strong>J</strong> の突起を人差し指の目印に。親指はスペースキー。</p>
+  <div class="home-fig">
+    <div class="k">A</div><div class="k">S</div><div class="k">D</div><div class="k h">F</div>
+    <div class="k">G</div><div class="k">H</div><div class="k h">J</div><div class="k">K</div><div class="k">L</div>
+  </div>
+  <p style="font-size:13px;color:var(--soft)">※ 青いキー（F・J）に突起があります。ここに人差し指を置くのが基本姿勢です。</p>
+
+  <h2>付録2：かんたん ローマ字表</h2>
+  <p>主な打ち方です（別の打ち方も受けつけます：し=shi/si、ち=chi/ti、つ=tsu/tu、ふ=fu/hu、じ=ji/zi）。</p>
+  <div class="roma">
+    <div>あ<small>a</small></div><div>い<small>i</small></div><div>う<small>u</small></div><div>え<small>e</small></div><div>お<small>o</small></div>
+    <div>か<small>ka</small></div><div>き<small>ki</small></div><div>く<small>ku</small></div><div>け<small>ke</small></div><div>こ<small>ko</small></div>
+    <div>さ<small>sa</small></div><div>し<small>shi</small></div><div>す<small>su</small></div><div>せ<small>se</small></div><div>そ<small>so</small></div>
+    <div>た<small>ta</small></div><div>ち<small>chi</small></div><div>つ<small>tsu</small></div><div>て<small>te</small></div><div>と<small>to</small></div>
+    <div>な<small>na</small></div><div>に<small>ni</small></div><div>ぬ<small>nu</small></div><div>ね<small>ne</small></div><div>の<small>no</small></div>
+    <div>は<small>ha</small></div><div>ひ<small>hi</small></div><div>ふ<small>fu</small></div><div>へ<small>he</small></div><div>ほ<small>ho</small></div>
+    <div>ま<small>ma</small></div><div>み<small>mi</small></div><div>む<small>mu</small></div><div>め<small>me</small></div><div>も<small>mo</small></div>
+    <div>や<small>ya</small></div><div>—</div><div>ゆ<small>yu</small></div><div>—</div><div>よ<small>yo</small></div>
+    <div>ら<small>ra</small></div><div>り<small>ri</small></div><div>る<small>ru</small></div><div>れ<small>re</small></div><div>ろ<small>ro</small></div>
+    <div>わ<small>wa</small></div><div>を<small>wo</small></div><div>ん<small>nn</small></div><div>—</div><div>—</div>
+  </div>
+  <p style="font-size:13px;color:var(--soft)">小さい「っ」… 次の音の最初の文字を重ねる（がっこう→gakkou）。 拗音「きゃ」→kya、「しゃ」→sha/sya など。</p>
+
+  <h2>付録3：がんばりカード（印刷して配布）</h2>
+  <div class="card">
+    <h3>★ わたしの タイピング きろく ★</h3>
+    <p style="font-size:14px">なまえ：________________　がくねん：______年______組</p>
+    <table class="rows">
+      <tr><th>かい</th><th>日づけ</th><th>★の かず</th><th>せいかくさ(%)</th><th>1ぷんかん もじ</th><th>ひとこと</th></tr>
+      <tr><td>第1回</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>第2回</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>第3回</td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p style="font-size:13px;color:var(--soft);margin-top:8px">※ 各回の終わりにアプリに表示される数字を書き写しましょう。きのうの自分をこえたら大成功！</p>
+  </div>
+
+  <div class="footer">
+    あいろの タイピングきょうしつ ／ せんせい用 指導ガイド<br>
+    豊田連合町内会自治会・飯島小中学校 学校運営協議会 ／ AI教育教材
+  </div>
+</div>
+</body>
+</html>
