@@ -238,6 +238,9 @@
       <div class="progress"><i id="progBar"></i></div>
       <div class="stage-area" id="stageArea"></div>
       <div class="keyboard" id="keyboard"></div>
+      <input id="mobileInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+        style="position:fixed;opacity:0;width:1px;height:1px;top:0;left:0;border:none;outline:none;padding:0;margin:0;font-size:16px;"
+        aria-hidden="true" tabindex="-1">
       <div class="play-foot">
         <span class="note" id="footNote">パソコンの キーボードで うってね</span>
         <button class="iconbtn" id="skipBtn">つぎへ ▶</button>
@@ -619,6 +622,7 @@ function loadStage(){
     document.getElementById("skipBtn").classList.remove("hidden");
   }
   loadItem();
+  focusMobileInput();
 }
 
 function startTimer(){
@@ -724,6 +728,45 @@ document.addEventListener("keydown",e=>{
   if(document.getElementById("screen-play").classList.contains("hidden"))return;
   if(e.key===" "){e.preventDefault();}
   if(e.key.length===1||e.key===" ")handleKey(e.key);
+});
+
+/* ---- iOS/Androidソフトウェアキーボード対応 ---- */
+const mobileInput=document.getElementById("mobileInput");
+let lastVal="";
+mobileInput.addEventListener("input",()=>{
+  if(document.getElementById("screen-play").classList.contains("hidden"))return;
+  const v=mobileInput.value;
+  // 入力された文字だけを取り出す（差分）
+  if(v.length>lastVal.length){
+    const added=v.slice(lastVal.length);
+    for(const c of added) handleKey(c);
+  }
+  // 常にリセット（日本語変換候補が残らないよう）
+  mobileInput.value="";
+  lastVal="";
+});
+mobileInput.addEventListener("keydown",e=>{
+  if(e.key===" "){e.preventDefault(); handleKey(" ");}
+});
+
+function focusMobileInput(){
+  const isTouchDevice=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+  const note=document.getElementById("footNote");
+  if(isTouchDevice){
+    mobileInput.removeAttribute("tabindex");
+    mobileInput.focus();
+    if(note) note.textContent="画面をタップしてキーボードを出してね";
+  } else {
+    if(note) note.textContent="パソコンの キーボードで うってね";
+  }
+  lastVal="";
+  mobileInput.value="";
+}
+
+// 練習画面タップでフォーカスを戻す
+document.getElementById("screen-play").addEventListener("click",e=>{
+  if(e.target.closest("button"))return;
+  focusMobileInput();
 });
 
 /* ---- ステージ送り / 結果 ---- */
